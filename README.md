@@ -15,7 +15,11 @@ How to open
 
 Notes
 - If the deadline has passed, the countdown shows 00:00:00:00 and recommended daily target is adjusted accordingly.
-- No external assets are required.
+ - No external assets are required by default.
 
-Assumption
-- No image was attached in the prompt; the page uses a clean modern design instead. If you provide the image, I can integrate it into the header or background.
+Using the provided PNG as a background
+- Place the PNG you attached to the conversation into the project at `D:\shoppers_countdown\assets\background.png`.
+	- Create the `assets` folder if it doesn't exist.
+	- Netlify will serve that file from the deployed site, and the page will automatically use it as the full-page background with a readable overlay.
+
+If you'd like, I can add the image file into the repository for you — upload the image into the workspace or tell me to commit it and I will add and push it to your repo.

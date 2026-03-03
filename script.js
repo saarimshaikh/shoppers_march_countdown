@@ -78,7 +78,12 @@ function saveAccumulated(v){
 }
 
 function calculateStats(){
-  const original = getOriginal();
+  // Prefer stored original, but if user has typed a value (and not saved yet), use that for live calculation
+  let original = getOriginal();
+  if (original == null){
+    const typed = parseFloat(el('originalTarget').value);
+    if (Number.isFinite(typed) && typed >= 0) original = typed;
+  }
   const accumulated = getAccumulated();
   const remDays = daysRemaining();
 
@@ -106,6 +111,22 @@ function calculateStats(){
   el('dailyTarget').textContent = daily;
 }
 
+// Auto-save helpers: save original target on blur, Enter, or after a short debounce while typing
+let _saveTimer = null;
+function scheduleAutoSaveOriginal(delay = 1200){
+  if (_saveTimer) clearTimeout(_saveTimer);
+  _saveTimer = setTimeout(()=>{
+    const v = parseFloat(el('originalTarget').value);
+    if (!isNaN(v) && v >= 0){
+      // only write if different to avoid extra writes
+      const stored = getOriginal();
+      if (stored !== v) saveOriginal(v);
+    }
+    calculateStats();
+  }, delay);
+}
+
+
 function init(){
   // wire up buttons
   el('saveTarget').addEventListener('click', ()=>{
@@ -116,6 +137,26 @@ function init(){
     }
     saveOriginal(val);
     calculateStats();
+  });
+
+  // save on blur
+  el('originalTarget').addEventListener('blur', ()=>{
+    const v = parseFloat(el('originalTarget').value);
+    if (!isNaN(v) && v >= 0) saveOriginal(v);
+    calculateStats();
+  });
+
+  // save on Enter key
+  el('originalTarget').addEventListener('keydown', (e)=>{
+    if (e.key === 'Enter'){
+      el('saveTarget').click();
+      el('originalTarget').blur();
+    }
+  });
+
+  // debounce auto-save while typing
+  el('originalTarget').addEventListener('input', ()=>{
+    scheduleAutoSaveOriginal(1200);
   });
 
   el('addAchieved').addEventListener('click', ()=>{

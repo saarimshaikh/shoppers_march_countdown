@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Countdown & Target Tracker — 31 Mar 2026 23:59 IST</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <header class="hero">
+        <div class="hero-left">
+          <h1>March Sprint</h1>
+          <p class="subtitle">Countdown to 31 March 2026 • 11:59 PM IST</p>
+        </div>
+        <div class="hero-right">
+          <div class="clock-card">
+            <div id="countdown" class="countdown">
+              <div class="time-block"><span id="days">--</span><small>Days</small></div>
+              <div class="time-block"><span id="hours">--</span><small>Hours</small></div>
+              <div class="time-block"><span id="minutes">--</span><small>Minutes</small></div>
+              <div class="time-block"><span id="seconds">--</span><small>Seconds</small></div>
+            </div>
+            <div id="status" class="status">Loading...</div>
+          </div>
+        </div>
+      </header>
+
+      <section class="tracker card">
+        <h2>Target Tracker</h2>
+
+        <div class="row">
+          <label>Original total target</label>
+          <div class="input-group">
+            <input id="originalTarget" type="number" min="0" step="1" />
+            <button id="saveTarget">Save</button>
+          </div>
+        </div>
+
+        <div class="row">
+          <label>Today's achieved (add)</label>
+          <div class="input-group">
+            <input id="todayAchieved" type="number" min="0" step="1" />
+            <button id="addAchieved">Add</button>
+          </div>
+        </div>
+
+        <div class="stats">
+          <div class="stat">
+            <div class="label">Remaining days</div>
+            <div id="remainingDays" class="value">--</div>
+          </div>
+          <div class="stat">
+            <div class="label">Remaining amount</div>
+            <div id="remainingAmount" class="value">--</div>
+          </div>
+          <div class="stat">
+            <div class="label">Recommended daily target</div>
+            <div id="dailyTarget" class="value">--</div>
+          </div>
+        </div>
+
+        <div class="row small">
+          <div>Accumulated achieved: <strong id="accumulated">0</strong></div>
+          <div><button id="resetAll" class="danger">Reset</button></div>
+        </div>
+      </section>
+
+      <footer class="foot">
+        <small>Times are based on Indian Standard Time (UTC+05:30). Data persists in your browser.</small>
+      </footer>
+    </main>
+    <script src="script.js"></script>
+  </body>
+</html>
